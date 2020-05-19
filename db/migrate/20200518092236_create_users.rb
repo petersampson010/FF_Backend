@@ -6,6 +6,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :teamname
       t.string :password
       t.integer :transfers
+      t.references :admin_user, null: false, foreign_key: true
 
       t.timestamps
     end

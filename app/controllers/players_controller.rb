@@ -5,7 +5,7 @@ class PlayersController < ApplicationController
     end 
 
     def create
-        players = Player.create(params)
+        players = Player.create(player_params)
         render json: players
     end 
 
@@ -17,5 +17,11 @@ class PlayersController < ApplicationController
     def destroy 
         players = Player.find(params[:id])
         players.delete
+    end 
+
+    private 
+
+    def player_params 
+        params.require(:player).permit!
     end 
 end

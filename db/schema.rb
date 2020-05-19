@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_18_120935) do
+ActiveRecord::Schema.define(version: 2020_05_19_153532) do
 
   create_table "admin_users", primary_key: "admin_user_id", force: :cascade do |t|
     t.string "username"
@@ -20,14 +20,14 @@ ActiveRecord::Schema.define(version: 2020_05_18_120935) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "gameweek_admin_user_joiners", primary_key: "gau_id", force: :cascade do |t|
-    t.boolean "information_finalised"
-    t.integer "gameweek_id_id", null: false
-    t.integer "admin_user_id_id", null: false
+  create_table "gameweek_admin_user_joiners", force: :cascade do |t|
+    t.boolean "info_finalised"
+    t.integer "gameweek_id", null: false
+    t.integer "admin_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["admin_user_id_id"], name: "index_gameweek_admin_user_joiners_on_admin_user_id_id"
-    t.index ["gameweek_id_id"], name: "index_gameweek_admin_user_joiners_on_gameweek_id_id"
+    t.index ["admin_user_id"], name: "index_gameweek_admin_user_joiners_on_admin_user_id"
+    t.index ["gameweek_id"], name: "index_gameweek_admin_user_joiners_on_gameweek_id"
   end
 
   create_table "gameweeks", primary_key: "gameweek_id", force: :cascade do |t|
@@ -46,12 +46,12 @@ ActiveRecord::Schema.define(version: 2020_05_18_120935) do
     t.integer "bonus"
     t.integer "penalty_miss"
     t.integer "goals_conceded"
-    t.integer "player_id_id", null: false
-    t.integer "gameweek_id_id", null: false
+    t.integer "player_id", null: false
+    t.integer "gameweek_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["gameweek_id_id"], name: "index_player_gameweek_joiners_on_gameweek_id_id"
-    t.index ["player_id_id"], name: "index_player_gameweek_joiners_on_player_id_id"
+    t.index ["gameweek_id"], name: "index_player_gameweek_joiners_on_gameweek_id"
+    t.index ["player_id"], name: "index_player_gameweek_joiners_on_player_id"
   end
 
   create_table "player_user_joiners", primary_key: "pu_id", force: :cascade do |t|
@@ -59,12 +59,12 @@ ActiveRecord::Schema.define(version: 2020_05_18_120935) do
     t.string "availability"
     t.boolean "captain"
     t.boolean "vice_captain"
-    t.integer "player_id_id", null: false
-    t.integer "user_id_id", null: false
+    t.integer "player_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["player_id_id"], name: "index_player_user_joiners_on_player_id_id"
-    t.index ["user_id_id"], name: "index_player_user_joiners_on_user_id_id"
+    t.index ["player_id"], name: "index_player_user_joiners_on_player_id"
+    t.index ["user_id"], name: "index_player_user_joiners_on_user_id"
   end
 
   create_table "players", primary_key: "player_id", force: :cascade do |t|
@@ -77,12 +77,12 @@ ActiveRecord::Schema.define(version: 2020_05_18_120935) do
 
   create_table "user_gameweek_joiners", primary_key: "ug_id", force: :cascade do |t|
     t.integer "total_points"
-    t.integer "user_id_id", null: false
-    t.integer "gameweek_id_id", null: false
+    t.integer "user_id", null: false
+    t.integer "gameweek_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["gameweek_id_id"], name: "index_user_gameweek_joiners_on_gameweek_id_id"
-    t.index ["user_id_id"], name: "index_user_gameweek_joiners_on_user_id_id"
+    t.index ["gameweek_id"], name: "index_user_gameweek_joiners_on_gameweek_id"
+    t.index ["user_id"], name: "index_user_gameweek_joiners_on_user_id"
   end
 
   create_table "users", primary_key: "user_id", force: :cascade do |t|
@@ -90,16 +90,19 @@ ActiveRecord::Schema.define(version: 2020_05_18_120935) do
     t.string "teamname"
     t.string "password"
     t.integer "transfers"
+    t.integer "admin_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["admin_user_id"], name: "index_users_on_admin_user_id"
   end
 
-  add_foreign_key "gameweek_admin_user_joiners", "admin_user_ids"
-  add_foreign_key "gameweek_admin_user_joiners", "gameweek_ids"
-  add_foreign_key "player_gameweek_joiners", "gameweek_ids"
-  add_foreign_key "player_gameweek_joiners", "player_ids"
-  add_foreign_key "player_user_joiners", "player_ids"
-  add_foreign_key "player_user_joiners", "user_ids"
-  add_foreign_key "user_gameweek_joiners", "gameweek_ids"
-  add_foreign_key "user_gameweek_joiners", "user_ids"
+  add_foreign_key "gameweek_admin_user_joiners", "admin_users"
+  add_foreign_key "gameweek_admin_user_joiners", "gameweeks"
+  add_foreign_key "player_gameweek_joiners", "gameweeks"
+  add_foreign_key "player_gameweek_joiners", "players"
+  add_foreign_key "player_user_joiners", "players"
+  add_foreign_key "player_user_joiners", "users"
+  add_foreign_key "user_gameweek_joiners", "gameweeks"
+  add_foreign_key "user_gameweek_joiners", "users"
+  add_foreign_key "users", "admin_users"
 end

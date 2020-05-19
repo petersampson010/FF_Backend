@@ -6,8 +6,8 @@ class CreatePlayerUserJoiners < ActiveRecord::Migration[6.0]
       t.string :availability
       t.boolean :captain
       t.boolean :vice_captain
-      t.references :player_id, null: false, foreign_key: true
-      t.references :user_id, null: false, foreign_key: true
+      t.references :player, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end
