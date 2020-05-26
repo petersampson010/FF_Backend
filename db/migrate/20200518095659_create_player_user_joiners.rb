@@ -2,12 +2,12 @@ class CreatePlayerUserJoiners < ActiveRecord::Migration[6.0]
   def change
     create_table :player_user_joiners, id: false do |t|
       t.integer :pu_id, primary_key: true
-      t.boolean :sub
-      t.string :availability
-      t.boolean :captain
-      t.boolean :vice_captain
-      t.references :player, null: false, foreign_key: true
-      t.references :user, null: false, foreign_key: true
+      t.boolean :sub, null: false
+      t.string :availability, null: false
+      t.boolean :captain, null: false
+      t.boolean :vice_captain, null: false
+      t.integer :player_id, null: false
+      t.integer :user_id, null: false
 
       t.timestamps
     end

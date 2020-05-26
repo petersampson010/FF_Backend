@@ -2,11 +2,15 @@ class CreatePlayers < ActiveRecord::Migration[6.0]
   def change
     create_table :players, id: false do |t|
       t.integer :player_id, primary_key: true
-      t.string :name
-      t.string :position
-      t.float :price
+      t.string :first_name, null: false
+      t.string :last_name, null: false
+      t.string :position, null: false
+      t.float :price, null: false
+      t.integer :admin_user_id, null: false
+      t.index [:first_name, :last_name], unique: true
 
       t.timestamps
     end
+
   end
 end
