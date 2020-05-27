@@ -1,11 +1,11 @@
 class PlayerUserJoinersController < ApplicationController
     def index 
         player_user_joiners = PlayerUserJoiner.all
-        render json: aplayer_user_joiners
+        render json: player_user_joiners
     end 
 
     def create
-        player_user_joiner = PlayerUserJoiner.create(params)
+        player_user_joiner = PlayerUserJoiner.create(player_user_joiner_params)
         render json: player_user_joiner
     end 
 
@@ -17,5 +17,11 @@ class PlayerUserJoinersController < ApplicationController
     def destroy 
         player_user_joiner = PlayerUserJoiner.find(params[:id])
         player_user_joiner.delete
+    end 
+
+    private 
+
+    def player_user_joiner_params 
+        params.require(:player_user_joiner).permit!
     end 
 end

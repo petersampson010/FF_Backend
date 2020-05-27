@@ -7,7 +7,7 @@ class CreatePlayers < ActiveRecord::Migration[6.0]
       t.string :position, null: false
       t.float :price, null: false
       t.integer :admin_user_id, null: false
-      t.index [:first_name, :last_name], unique: true
+      t.index [:first_name, :last_name, :admin_user_id], unique: true
 
       t.timestamps
     end

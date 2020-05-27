@@ -1,4 +1,4 @@
 class PlayerUserJoiner < ApplicationRecord
-  belongs_to :player_id
-  belongs_to :user_id
+  belongs_to :player
+  belongs_to :user
 end

@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2020_05_20_142337) do
     t.integer "admin_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["first_name", "last_name"], name: "index_players_on_first_name_and_last_name", unique: true
+    t.index ["first_name", "last_name", "admin_user_id"], name: "index_players_on_first_name_and_last_name_and_admin_user_id", unique: true
   end
 
   create_table "user_gameweek_joiners", primary_key: "ug_id", force: :cascade do |t|

@@ -12,7 +12,9 @@ class AdminUsersController < ApplicationController
 
     def show
         admin_user = AdminUser.find(params[:id])
-        render json: admin_user
+        players = Player.all
+        admin_user_players = players.select{|x| x.admin_user_id===admin_user.id}
+        render json: admin_user_players
     end 
 
     def destroy 

@@ -1,4 +1,4 @@
 class PlayerGameweekJoiner < ApplicationRecord
-  belongs_to :player_id
-  belongs_to :gameweek_id
+  belongs_to :player
+  belongs_to :gameweek
 end
