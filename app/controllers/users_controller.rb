@@ -11,7 +11,12 @@ class UsersController < ApplicationController
 
     def show
         user = User.find(params[:id])
-        render json: user
+        players = Player.all
+        player_user_joiners = PlayerUserJoiner.all
+        player_user_joiners = player_user_joiners.filter{|x| x.user_id===user.user_id}
+        player_user_joiner_player_ids = player_user_joiners.map{|x| x.player_id}
+        user_players = players.select{|x| player_user_joiner_player_ids.include?(x.player_id)}
+        render json: user_players
     end 
 
     def destroy 

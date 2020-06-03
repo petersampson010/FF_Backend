@@ -51,7 +51,6 @@ ActiveRecord::Schema.define(version: 2020_05_20_142337) do
 
   create_table "player_user_joiners", primary_key: "pu_id", force: :cascade do |t|
     t.boolean "sub", null: false
-    t.string "availability", null: false
     t.boolean "captain", null: false
     t.boolean "vice_captain", null: false
     t.integer "player_id", null: false
@@ -65,6 +64,7 @@ ActiveRecord::Schema.define(version: 2020_05_20_142337) do
     t.string "last_name", null: false
     t.string "position", null: false
     t.float "price", null: false
+    t.string "availability", null: false
     t.integer "admin_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
