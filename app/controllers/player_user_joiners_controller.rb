@@ -9,6 +9,12 @@ class PlayerUserJoinersController < ApplicationController
         render json: player_user_joiner
     end 
 
+    def update 
+        player_user_joiner = PlayerUserJoiner.find(params[:id])
+        player_user_joiner.update(player_user_joiner_params)
+        render json: player_user_joiner
+    end 
+
     def show
         player_user_joiner = PlayerUserJoiner.find(params[:id])
         render json: player_user_joiner
