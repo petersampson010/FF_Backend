@@ -17,6 +17,11 @@ class AdminUsersController < ApplicationController
         render json: admin_user_players
     end 
 
+    def a_user 
+        admin_user = AdminUser.find(params[:id])
+        render json: admin_user 
+    end 
+
     def destroy 
         admin_user = AdminUser.find(params[:id])
         admin_user.delete

@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   resources :gameweeks
   resources :users
   resources :players
+  get '/admin_users/route/:id', to: 'admin_users#a_user'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
