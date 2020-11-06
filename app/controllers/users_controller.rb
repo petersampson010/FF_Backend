@@ -19,6 +19,12 @@ class UsersController < ApplicationController
         user.delete
     end 
 
+    def player_user_joiners 
+        user = User.find(params[:id])
+        player_user_joiners = PlayerUserJoiner.all.filter{|x| x.user_id===user.user_id}
+        render json: player_user_joiners
+    end 
+
     def team_start
         user = User.find(params[:id])
         players = Player.all 
@@ -36,6 +42,10 @@ class UsersController < ApplicationController
         user_players = players.select{|x| player_user_joiner_player_ids.include?(x.player_id)}
         render json: user_players
     end 
+
+    # def players 
+    #     user = User.find(params[:id])
+
 
 
     private 

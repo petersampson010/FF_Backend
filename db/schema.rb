@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2020_05_20_142337) do
 
   create_table "admin_users", primary_key: "admin_user_id", force: :cascade do |t|
-    t.string "username", null: false
+    t.string "email", null: false
     t.string "password", null: false
     t.string "club_name", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 2020_05_20_142337) do
   create_table "players", primary_key: "player_id", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
-    t.string "position", null: false
+    t.integer "position", null: false
     t.float "price", null: false
     t.string "availability", null: false
     t.integer "admin_user_id", null: false
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 2020_05_20_142337) do
   end
 
   create_table "users", primary_key: "user_id", force: :cascade do |t|
-    t.string "username"
+    t.string "email"
     t.string "teamname", null: false
     t.string "password", null: false
     t.integer "transfers", null: false
