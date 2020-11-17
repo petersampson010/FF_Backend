@@ -4,7 +4,7 @@ class CreatePlayers < ActiveRecord::Migration[6.0]
       t.integer :player_id, primary_key: true
       t.string :first_name, null: false
       t.string :last_name, null: false
-      t.integer :position, null: false
+      t.string :position, null: false
       t.float :price, null: false
       t.string :availability, null: false
       t.integer :admin_user_id, null: false
