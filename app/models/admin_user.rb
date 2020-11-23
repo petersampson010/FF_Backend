@@ -7,5 +7,5 @@ class AdminUser < ApplicationRecord
     has_many :player_user_joiners, through: :users 
     has_many :players, through: :player_user_joiners
 
-    has_many :gameweek_admin_user_joiners 
+    has_many :gameweeks
 end

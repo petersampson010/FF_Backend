@@ -1,2 +1,0 @@
-class GameweekAdminUserJoinersController < ApplicationController
-end

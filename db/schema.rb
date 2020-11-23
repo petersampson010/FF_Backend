@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_20_142337) do
+ActiveRecord::Schema.define(version: 2020_05_18_100928) do
 
   create_table "admin_users", primary_key: "admin_user_id", force: :cascade do |t|
     t.string "email", null: false
@@ -20,15 +20,9 @@ ActiveRecord::Schema.define(version: 2020_05_20_142337) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "gameweek_admin_user_joiners", primary_key: "gau_id", force: :cascade do |t|
-    t.integer "gameweek_id", null: false
-    t.integer "admin_user_id", null: false
-    t.boolean "info_finalised"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "gameweeks", primary_key: "gameweek_id", force: :cascade do |t|
+    t.string "opponent", null: false
+    t.boolean "complete", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
