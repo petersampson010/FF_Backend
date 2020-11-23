@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 2020_05_20_142337) do
     t.string "teamname", null: false
     t.string "password", null: false
     t.integer "transfers", null: false
+    t.integer "budget", null: false
     t.integer "admin_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
