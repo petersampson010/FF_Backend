@@ -11,5 +11,6 @@ Rails.application.routes.draw do
   get '/users/:id/team_sub', to: 'users#team_sub'
   get '/users/:id/player_user_joiners', to: 'users#player_user_joiners'
   get '/admin_users/:id/players', to: 'admin_users#players'
+  get '/gameweeks/admin_user/:id', to: 'gameweeks#admin_user'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
