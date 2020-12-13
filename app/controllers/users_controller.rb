@@ -49,10 +49,12 @@ class UsersController < ApplicationController
         render json: user_players
     end 
 
-    # def players 
-    #     user = User.find(params[:id])
-
-
+    def pg_joiners
+        id = params[:gameweek_id].to_i
+        user = User.find(params[:id])
+        pg_joiners = user.player_gameweek_joiners.filter{|pg| pg.gameweek_id===id}
+        render json: pg_joiners
+    end 
 
     private 
 

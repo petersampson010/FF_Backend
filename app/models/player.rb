@@ -8,4 +8,6 @@ class Player < ApplicationRecord
     
     has_one :admin_user, through: :users
 
+    
+
 end

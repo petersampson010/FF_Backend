@@ -7,19 +7,15 @@ class GameweeksController < ApplicationController
 
     def create
         gameweek = Gameweek.create(gameweek_params)
-        render json:gameweek
+        puts gameweek_params
+        render json: gameweek
     end 
 
     def show
         gameweek = Gameweek.find(gameweek_params[:id])
-        render json:gameweek
+        render json: gameweek
     end 
 
-    def update
-        gameweek = Gameweek.find(params[:id])
-        gameweek.update(gameweek_params)
-        render json: gameweek
-    end
 
     def destroy 
         gameweek = Gameweek.find(gameweek_params[:id])

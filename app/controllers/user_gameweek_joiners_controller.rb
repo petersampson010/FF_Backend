@@ -5,7 +5,13 @@ class UserGameweekJoinersController < ApplicationController
     end 
 
     def create
-        user_gameweek_joiner = UserGameweekJoiner.create(params)
+        user_gameweek_joiner = UserGameweekJoiner.create(user_gameweek_joiner_params)
+        render json: user_gameweek_joiner
+    end 
+
+    def update
+        user_gameweek_joiner = UserGameweekJoiner.find(params[:id])
+        user_gameweek_joiner.update(user_gameweek_joiner_params)
         render json: user_gameweek_joiner
     end 
 
@@ -18,4 +24,11 @@ class UserGameweekJoinersController < ApplicationController
         user_gameweek_joiner = UserGameweekJoiner.find(params[:id])
         user_gameweek_joiner.delete
     end 
+
+    private 
+
+    def user_gameweek_joiner_params
+        params.require(:user_gameweek_joiner).permit!
+    end
+
 end
