@@ -17,7 +17,9 @@ class AdminUsersController < ApplicationController
 
     def players
         admin_user = AdminUser.find(params[:id])
+        puts admin_user
         players = admin_user.players
+        puts players
         render json: players
     end 
 
