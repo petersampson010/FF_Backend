@@ -30,6 +30,18 @@ class AdminUsersController < ApplicationController
         render json: admin_users
     end 
 
+    def latest_gw
+        admin_user  = AdminUser.find(params[:id])
+        gw_s = admin_user.gameweeks
+        render json: gw_s[gw_s.length()-1]
+    end
+
+    def club_game
+        admin_user = AdminUser.find(params[:id])
+        pg_joiners = admin_user.player_gameweek_joiners.filter{|pg| pg.gameweek_id===params[:gw_id]}
+        render json: pg_joiners 
+    end 
+
     def league 
         admin_user = AdminUser.find(params[:id])
         users = admin_user.users

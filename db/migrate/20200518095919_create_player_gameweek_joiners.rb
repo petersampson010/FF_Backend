@@ -11,6 +11,7 @@ class CreatePlayerGameweekJoiners < ActiveRecord::Migration[6.0]
       t.integer :bonus
       t.integer :penalty_miss
       t.integer :goals_conceded
+      t.integer :total_points
       t.integer :player_id, null: false
       t.integer :gameweek_id, null: false
 

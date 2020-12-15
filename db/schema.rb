@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2020_05_18_100928) do
     t.integer "bonus"
     t.integer "penalty_miss"
     t.integer "goals_conceded"
+    t.integer "total_points"
     t.integer "player_id", null: false
     t.integer "gameweek_id", null: false
     t.datetime "created_at", precision: 6, null: false

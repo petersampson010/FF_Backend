@@ -31,8 +31,6 @@ class GameweeksController < ApplicationController
     def admin_user
         id = params[:id].to_i
         admin_user_gameweeks = Gameweek.all.filter{|x| x.admin_user_id===id}
-        puts Gameweek.all[0].admin_user_id.class
-        puts id.class
         render json: admin_user_gameweeks
     end 
 
