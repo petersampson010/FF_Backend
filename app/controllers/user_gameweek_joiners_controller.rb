@@ -25,7 +25,7 @@ class UserGameweekJoinersController < ApplicationController
         user_gameweek_joiner.delete
     end 
 
-    def ids
+    def user
         user_gameweek_joiners = UserGameweekJoiner.all
         user_gameweek_joiners = user_gameweek_joiners.filter{|ug| ug.gameweek_id===params[:gw_id].to_i && ug.user_id===params[:id].to_i}
         render json: user_gameweek_joiners[0]
