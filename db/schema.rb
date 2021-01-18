@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2020_05_18_100928) do
   create_table "gameweeks", primary_key: "gameweek_id", force: :cascade do |t|
     t.string "date", null: false
     t.string "opponent", null: false
+    t.string "score"
     t.boolean "complete", null: false
     t.integer "admin_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
