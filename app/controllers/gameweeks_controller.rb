@@ -7,7 +7,6 @@ class GameweeksController < ApplicationController
 
     def create
         gameweek = Gameweek.create(gameweek_params)
-        puts gameweek_params
         render json: gameweek
     end 
 
@@ -17,7 +16,6 @@ class GameweeksController < ApplicationController
     end 
 
     def update
-        puts 'dis one'
         gameweek = Gameweek.find(params[:id])
         gameweek.update(gameweek_params)
         render json: gameweek

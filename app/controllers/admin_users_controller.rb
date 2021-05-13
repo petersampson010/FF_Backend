@@ -17,9 +17,7 @@ class AdminUsersController < ApplicationController
 
     def players
         admin_user = AdminUser.find(params[:id])
-        puts admin_user
         players = admin_user.players
-        puts players
         render json: players
     end 
 
@@ -66,11 +64,7 @@ class AdminUsersController < ApplicationController
 
     def ug_joiners
         admin_user = AdminUser.find(params[:id])
-        puts 'before'
-        puts admin_user.user_gameweek_joiners
-        puts 'after'
         user_gameweek_joiners = admin_user.user_gameweek_joiners.filter{|ug| ug.gameweek_id===params[:gw_id].to_i}
-        puts user_gameweek_joiners
         render json: user_gameweek_joiners
     end 
 

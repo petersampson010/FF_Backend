@@ -26,6 +26,13 @@ class PlayerGameweekJoinersController < ApplicationController
         player_gameweek.delete
     end 
 
+    def by_gw
+        player_gameweeks = PlayerGameweekJoiner.all
+        player_gameweeks = player_gameweeks.filter{|pg| pg.gameweek_id===params[:gw_id].to_i}
+        render json: player_gameweeks
+    end 
+        
+
     private
 
     def player_gameweek_joiner_params

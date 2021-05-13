@@ -6,7 +6,6 @@ class PlayersController < ApplicationController
 
     def create
         player = Player.create(player_params)
-        puts player
         render json: player
     end 
 

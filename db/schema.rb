@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 2020_05_18_100928) do
     t.integer "total_points", null: false
     t.integer "user_id", null: false
     t.integer "gameweek_id", null: false
+    t.integer "player_ids", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
