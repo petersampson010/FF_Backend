@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_18_100928) do
+ActiveRecord::Schema.define(version: 2020_05_18_095919) do
 
   create_table "admin_users", primary_key: "admin_user_id", force: :cascade do |t|
     t.string "email", null: false
@@ -69,21 +69,12 @@ ActiveRecord::Schema.define(version: 2020_05_18_100928) do
     t.index ["first_name", "last_name", "admin_user_id"], name: "index_players_on_first_name_and_last_name_and_admin_user_id", unique: true
   end
 
-  create_table "user_gameweek_joiners", primary_key: "ug_id", force: :cascade do |t|
-    t.integer "total_points", null: false
-    t.integer "user_id", null: false
-    t.integer "gameweek_id", null: false
-    t.integer "player_ids", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "users", primary_key: "user_id", force: :cascade do |t|
     t.string "email"
     t.string "teamname", null: false
     t.string "password", null: false
     t.integer "transfers", null: false
-    t.integer "budget", null: false
+    t.float "budget", null: false
     t.integer "admin_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

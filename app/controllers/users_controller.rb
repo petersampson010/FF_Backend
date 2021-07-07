@@ -31,7 +31,7 @@ class UsersController < ApplicationController
         render json: player_user_joiners
     end 
 
-    def current_team_start
+    def latest_starters
         user = User.find(params[:id])
         players = Player.all 
         player_user_joiners = PlayerUserJoiner.all.filter{|x| x.user_id===user.user_id && x.sub===false}
@@ -40,13 +40,26 @@ class UsersController < ApplicationController
         render json: user_players
     end 
 
-    def gw_team_start
+    def gw_starters
+        ug_joiners = UserGameweekJoiner.all
         user = User.find(params[:id])
-        player_gameweek_joiners = PlayerGameweekJoiner.all.filter{|pg| pg.gameweek_id===params[:gameweek_id]}
-        
+        ug_joiner = user.user_gameweek_joiners.filter{|ug| ug.gameweek_id===params[:gameweek_id].to_i}[0]
+        puts ug_joiner
+        player_ids = ug_joiner.player_ids
+        players = player_ids.map{|p| Player.all.find(p.player_id)}
+        render json: players
     end 
 
-    def team_sub 
+    def latest_subs 
+        user = User.find(params[:id])
+        players = Player.all 
+        player_user_joiners = PlayerUserJoiner.all.filter{|x| x.user_id===user.user_id && x.sub===true}
+        player_user_joiner_player_ids = player_user_joiners.map{|x| x.player_id}
+        user_players = players.select{|x| player_user_joiner_player_ids.include?(x.player_id)}
+        render json: user_players
+    end 
+
+    def gw_subs 
         user = User.find(params[:id])
         players = Player.all 
         player_user_joiners = PlayerUserJoiner.all.filter{|x| x.user_id===user.user_id && x.sub===true}

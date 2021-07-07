@@ -5,6 +5,7 @@ class UserGameweekJoinersController < ApplicationController
     end 
 
     def create
+        puts params[:player_ids]
         user_gameweek_joiner = UserGameweekJoiner.create(user_gameweek_joiner_params)
         render json: user_gameweek_joiner
     end 
@@ -34,7 +35,7 @@ class UserGameweekJoinersController < ApplicationController
     private 
 
     def user_gameweek_joiner_params
-        params.require(:user_gameweek_joiner).permit!
+        params.require(:user_gameweek_joiner).permit(:total_points, :user_id, :gameweek_id, :ff_player_ids => [])
     end
 
 end
