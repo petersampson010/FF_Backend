@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_18_095919) do
+ActiveRecord::Schema.define(version: 2021_07_20_152337) do
 
   create_table "admin_users", primary_key: "admin_user_id", force: :cascade do |t|
     t.string "email", null: false
@@ -26,6 +26,14 @@ ActiveRecord::Schema.define(version: 2020_05_18_095919) do
     t.string "score"
     t.boolean "complete", null: false
     t.integer "admin_user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "messages", primary_key: "message_id", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "msg", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -47,12 +55,10 @@ ActiveRecord::Schema.define(version: 2020_05_18_095919) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "player_user_joiners", primary_key: "pu_id", force: :cascade do |t|
-    t.boolean "sub", null: false
-    t.boolean "captain", null: false
-    t.boolean "vice_captain", null: false
-    t.integer "player_id", null: false
-    t.integer "user_id", null: false
+  create_table "player_user_gameweek_joiners", force: :cascade do |t|
+    t.string "user_id"
+    t.string "player_id"
+    t.string "gameweek_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -67,6 +73,25 @@ ActiveRecord::Schema.define(version: 2020_05_18_095919) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["first_name", "last_name", "admin_user_id"], name: "index_players_on_first_name_and_last_name_and_admin_user_id", unique: true
+  end
+
+  create_table "records", primary_key: "record_id", force: :cascade do |t|
+    t.boolean "sub"
+    t.boolean "captain"
+    t.boolean "vice_captain"
+    t.integer "user_id"
+    t.integer "player_id"
+    t.integer "gameweek_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "user_gameweek_joiners", primary_key: "ug_id", force: :cascade do |t|
+    t.integer "total_points", null: false
+    t.integer "user_id", null: false
+    t.integer "gameweek_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", primary_key: "user_id", force: :cascade do |t|

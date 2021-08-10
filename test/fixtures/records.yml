@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sub: MyString
+  captain: MyString
+  vice_captain: MyString
+  user_id: MyString
+  player_id: MyString
+  gameweek_id: MyString
+
+two:
+  sub: MyString
+  captain: MyString
+  vice_captain: MyString
+  user_id: MyString
+  player_id: MyString
+  gameweek_id: MyString
