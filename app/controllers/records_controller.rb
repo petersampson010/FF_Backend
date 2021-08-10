@@ -27,7 +27,7 @@ class RecordsController < ApplicationController
 
     def by_user_id
         records = Record.all
-        records = records.filter{ |r| r.user_id == params[:user_id]}
+        records = records.filter{ |r| r.user_id == params[:user_id].to_i}
         render json: records
     end
 

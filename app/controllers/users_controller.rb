@@ -25,23 +25,23 @@ class UsersController < ApplicationController
         user.delete
     end 
 
-    def player_user_joiners 
+    def records 
         user = User.find(params[:id])
-        player_user_joiners = PlayerUserJoiner.all.filter{|x| x.user_id===user.user_id}
-        render json: player_user_joiners
+        records = Record.all.filter{|x| x.user_id===user.user_id}
+        render json: records
     end 
 
     def latest_starters
         user = User.find(params[:id])
         players = Player.all 
-        player_user_joiners = PlayerUserJoiner.all.filter{|x| x.user_id===user.user_id && x.sub===false}
-        player_user_joiner_player_ids = player_user_joiners.map{|x| x.player_id}
-        user_players = players.select{|x| player_user_joiner_player_ids.include?(x.player_id)}
+        records = Record.all.filter{|x| x.user_id===user.user_id && x.sub===false}
+        records_player_ids = records.map{|x| x.player_id}
+        user_players = players.select{|x| records_player_ids.include?(x.player_id)}
         render json: user_players
     end 
 
     def gw_starters
-        ug_joiners = UserGameweekJoiner.all
+        ug_joiners = Record.all
         user = User.find(params[:id])
         ug_joiner = user.user_gameweek_joiners.filter{|ug| ug.gameweek_id===params[:gameweek_id].to_i}[0]
         puts ug_joiner
@@ -53,18 +53,18 @@ class UsersController < ApplicationController
     def latest_subs 
         user = User.find(params[:id])
         players = Player.all 
-        player_user_joiners = PlayerUserJoiner.all.filter{|x| x.user_id===user.user_id && x.sub===true}
-        player_user_joiner_player_ids = player_user_joiners.map{|x| x.player_id}
-        user_players = players.select{|x| player_user_joiner_player_ids.include?(x.player_id)}
+        records = Record.all.filter{|x| x.user_id===user.user_id && x.sub===true}
+        records_player_ids = records.map{|x| x.player_id}
+        user_players = players.select{|x| records_player_ids.include?(x.player_id)}
         render json: user_players
     end 
 
     def gw_subs 
         user = User.find(params[:id])
         players = Player.all 
-        player_user_joiners = PlayerUserJoiner.all.filter{|x| x.user_id===user.user_id && x.sub===true}
-        player_user_joiner_player_ids = player_user_joiners.map{|x| x.player_id}
-        user_players = players.select{|x| player_user_joiner_player_ids.include?(x.player_id)}
+        records = Record.all.filter{|x| x.user_id===user.user_id && x.sub===true}
+        record_player_ids = records.map{|x| x.player_id}
+        user_players = players.select{|x| record_player_ids.include?(x.player_id)}
         render json: user_players
     end 
 
