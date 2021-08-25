@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   resources :records
   resources :messages
   resources :user_gameweek_joiners
-  resources :player_gameweek_joiners
   resources :admin_users
   resources :gameweeks
   resources :users
