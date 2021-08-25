@@ -55,6 +55,14 @@ ActiveRecord::Schema.define(version: 2021_07_20_152337) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "player_user_gameweek_joiners", force: :cascade do |t|
+    t.string "user_id"
+    t.string "player_id"
+    t.string "gameweek_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "players", primary_key: "player_id", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
