@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get '/user_gameweek_joiners/:id/:gw_id', to: 'user_gameweek_joiners#user'
 
   get '/player_gameweek_joiners/by_gw/:gw_id', to: 'player_gameweek_joiners#by_gw'
+  get '/player_gameweek_joiners/find/:gw_id/:p_id', to: 'player_gameweek_joiners#find'
 
   get '/records/user_id/:user_id', to: 'records#by_user_id'
   

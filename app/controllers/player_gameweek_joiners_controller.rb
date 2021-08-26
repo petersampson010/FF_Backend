@@ -31,6 +31,20 @@ class PlayerGameweekJoinersController < ApplicationController
         player_gameweeks = player_gameweeks.filter{|pg| pg.gameweek_id===params[:gw_id].to_i}
         render json: player_gameweeks
     end 
+
+    def find
+        player_gameweeks = PlayerGameweekJoiner.all
+        puts player_gameweeks
+        puts 'break0'
+        puts player_gameweeks[0].player_id.class
+        puts 'break1'
+        player_gameweek = player_gameweeks.filter{|pg| (pg.gameweek_id===params[:gw_id].to_i) && (pg.player_id===params[:p_id].to_i)}
+        puts player_gameweek
+        puts 'break2'
+        puts player_gameweek[0]
+        render json: player_gameweek
+    end
+
         
 
     private
