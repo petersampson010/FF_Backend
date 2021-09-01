@@ -41,12 +41,11 @@ class UsersController < ApplicationController
     end 
 
     def gw_starters
-        ug_joiners = Record.all
-        user = User.find(params[:id])
-        ug_joiner = user.user_gameweek_joiners.filter{|ug| ug.gameweek_id===params[:gameweek_id].to_i}[0]
-        puts ug_joiner
-        player_ids = ug_joiner.player_ids
-        players = player_ids.map{|p| Player.all.find(p.player_id)}
+        user_id = params[:id].to_i
+        gw_id = params[:gameweek_id].to_i
+        records = Record.all.filter{ |r| r.gameweek_id === gw_id && r.user_id === user_id && r.sub === false }
+        player_ids = records.map{ |r| r.player_id }
+        players = Player.all.filter{ |p| player_ids.include?(p.player_id) }
         render json: players
     end 
 
@@ -60,12 +59,12 @@ class UsersController < ApplicationController
     end 
 
     def gw_subs 
-        user = User.find(params[:id])
-        players = Player.all 
-        records = Record.all.filter{|x| x.user_id===user.user_id && x.sub===true}
-        record_player_ids = records.map{|x| x.player_id}
-        user_players = players.select{|x| record_player_ids.include?(x.player_id)}
-        render json: user_players
+        user_id = params[:id].to_i
+        gw_id = params[:gameweek_id].to_i
+        records = Record.all.filter{ |r| r.gameweek_id === gw_id && r.user_id === user_id && r.sub }
+        player_ids = records.map{ |r| r.player_id }
+        players = Player.all.filter{ |p| player_ids.include?(p.player_id) }
+        render json: players
     end 
 
     def pg_joiners
