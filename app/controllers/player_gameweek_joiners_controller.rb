@@ -45,6 +45,13 @@ class PlayerGameweekJoinersController < ApplicationController
         render json: player_gameweek
     end
 
+    def by_user
+        records = Record.all.filter{ |r| r.user_id === params[:user_id].to_i}
+        player_ids = records.map{|r| r.player_id}
+        pg_joiners = PlayerGameweekJoiner.all.filter{ |pgj| player_ids.include?(pgj.player_id)}
+        render json: pg_joiners
+    end
+
         
 
     private
