@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
-    def index 
+    include HelperModule
+
+    def index
         users = User.all
-        render json: users
+        render json: find_from_params(users, user_params)
     end 
 
     def create
@@ -9,10 +11,10 @@ class UsersController < ApplicationController
         render json: user
     end 
 
-    def show
-        user = User.find(params[:id])
-        render json: user
-    end 
+    # def show
+    #     user = User.find(params[:id])
+    #     render json: user
+    # end 
 
     def update
         user = User.find(params[:id])
@@ -25,11 +27,11 @@ class UsersController < ApplicationController
         user.delete
     end 
 
-    def records 
-        user = User.find(params[:id])
-        records = Record.all.filter{|x| x.user_id===user.user_id}
-        render json: records
-    end 
+    # def records 
+    #     user = User.find(params[:id])
+    #     records = Record.all.filter{|x| x.user_id===user.user_id}
+    #     render json: records
+    # end 
 
     def latest_starters
         user = User.find(params[:id])
@@ -67,26 +69,26 @@ class UsersController < ApplicationController
         render json: players
     end 
 
-    def pg_joiners
+    # def pg_joiners
         
-        # id = params[:gameweek_id].to_i
-        # user = User.find(params[:id])
-        # puts user
-        # user_gameweeks = user.gameweeks
-        # puts user_gameweeks
-        # puts 'hi'
-        # pgj_all = PlayerGameweekJoiner.all
-        # puts pgj_all
-        # pg_joiners = []
-        # for i in user_gameweeks do 
-        #     pgj = pgj_all.select{ |pgj| pgj.gameweek_id===i.gameweek_id}
-        #     for j in pgj do 
-        #         pg_joiners << j 
-        #     end 
-        # end 
-        # # user.player_gameweek_joiners.filter{|pg| pg.gameweek_id===id}
-        # render json: pg_joiners
-    end 
+    #     # id = params[:gameweek_id].to_i
+    #     # user = User.find(params[:id])
+    #     # puts user
+    #     # user_gameweeks = user.gameweeks
+    #     # puts user_gameweeks
+    #     # puts 'hi'
+    #     # pgj_all = PlayerGameweekJoiner.all
+    #     # puts pgj_all
+    #     # pg_joiners = []
+    #     # for i in user_gameweeks do 
+    #     #     pgj = pgj_all.select{ |pgj| pgj.gameweek_id===i.gameweek_id}
+    #     #     for j in pgj do 
+    #     #         pg_joiners << j 
+    #     #     end 
+    #     # end 
+    #     # # user.player_gameweek_joiners.filter{|pg| pg.gameweek_id===id}
+    #     # render json: pg_joiners
+    # end 
 
     def total_points 
         user = User.find(params[:id])
@@ -98,7 +100,7 @@ class UsersController < ApplicationController
     private 
 
     def user_params 
-        params.require(:user).permit!
+        params.permit(:user_id, :email, :teamname, :transfers, :budget, :admin_user_id)
     end 
 
 end

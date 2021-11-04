@@ -1,13 +1,12 @@
 class MessagesController < ApplicationController
+include HelperModule
 
     def index
         messages = Message.all
-        render json: messages
+        render json: find_from_params(messages, message_params)
     end
 
     def create 
-        puts 'hit'
-        puts message_params
         message = Message.create(message_params)
         render json: message
     end 
@@ -15,7 +14,7 @@ class MessagesController < ApplicationController
     private 
 
     def message_params 
-        params.require(:message).permit!
+        params.permit(:message_id, :name, :email, :msg)
     end 
 
 end

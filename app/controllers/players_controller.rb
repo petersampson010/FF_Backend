@@ -1,7 +1,9 @@
 class PlayersController < ApplicationController
+include HelperModule
+
     def index 
         players = Player.all
-        render json: players
+        render json: find_from_params(players, player_params)
     end 
 
     def create
@@ -9,10 +11,10 @@ class PlayersController < ApplicationController
         render json: player
     end 
 
-    def show
-        player = Player.find(params[:id])
-        render json: player
-    end 
+    # def show
+    #     player = Player.find(params[:id])
+    #     render json: player
+    # end 
 
     def destroy 
         player = Player.find(params[:id])
@@ -46,6 +48,6 @@ class PlayersController < ApplicationController
     private 
 
     def player_params 
-        params.require(:player).permit!
+        params.permit(:player_id, :first_name, :last_name, :position, :price, :availability, :admin_user_id)
     end 
 end

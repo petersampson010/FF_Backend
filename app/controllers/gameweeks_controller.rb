@@ -1,8 +1,9 @@
 class GameweeksController < ApplicationController
+include HelperModule
 
     def index 
         gameweeks = Gameweek.all
-        render json: gameweeks
+        render json: find_from_params(gameweeks, gameweek_params)
     end 
 
     def create
@@ -10,10 +11,10 @@ class GameweeksController < ApplicationController
         render json: gameweek
     end 
 
-    def show
-        gameweek = Gameweek.find(params[:id])
-        render json: gameweek
-    end 
+    # def show
+    #     gameweek = Gameweek.find(params[:id])
+    #     render json: gameweek
+    # end 
 
     def update
         gameweek = Gameweek.find(params[:id])
@@ -26,15 +27,15 @@ class GameweeksController < ApplicationController
         gameweek.delete
     end 
 
-    def admin_user
-        id = params[:id].to_i
-        admin_user_gameweeks = Gameweek.all.filter{|x| x.admin_user_id===id}
-        render json: admin_user_gameweeks
-    end 
+    # def admin_user
+    #     id = params[:id].to_i
+    #     admin_user_gameweeks = Gameweek.all.filter{|x| x.admin_user_id===id}
+    #     render json: admin_user_gameweeks
+    # end 
 
     private
 
     def gameweek_params 
-        params.require(:gameweek).permit!
+        params.permit(:gameweek_id, :date, :opponent, :score, :complete, :admin_user_id)
     end 
 end
