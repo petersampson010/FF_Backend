@@ -11,11 +11,6 @@ include HelperModule
         render json: record
     end 
 
-    # def show
-    #     record = Record.find(params[:id])
-    #     render json: record
-    # end 
-
     def update
         record = Record.find(params[:id])
         record.update(record_params)
@@ -26,12 +21,6 @@ include HelperModule
         record = Record.find(params[:id])
         record.delete
     end 
-
-    # def by_user_id
-    #     records = Record.all
-    #     records = records.filter{ |r| r.user_id == params[:user_id].to_i}
-    #     render json: records
-    # end
 
 
     private 

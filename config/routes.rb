@@ -7,10 +7,7 @@ Rails.application.routes.draw do
   resources :gameweeks
   resources :users
   resources :players
-  get '/users/:id/latest_starters', to: 'users#latest_starters'
-  get '/users/:id/latest_subs', to: 'users#latest_subs'
-  get '/users/:id/:gameweek_id/gw_starters', to: 'users#gw_starters'
-  get '/users/:id/:gameweek_id/gw_subs', to: 'users#gw_subs'
+  
   get '/users/:id/:gameweek_id/pg_joiners', to: 'users#pg_joiners'
   get '/users/:id/total_points', to: 'users#total_points'
 

@@ -11,10 +11,7 @@ include HelperModule
         render json: player
     end 
 
-    # def show
-    #     player = Player.find(params[:id])
-    #     render json: player
-    # end 
+
 
     def destroy 
         player = Player.find(params[:id])

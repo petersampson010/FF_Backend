@@ -27,48 +27,6 @@ class UsersController < ApplicationController
         user.delete
     end 
 
-    # def records 
-    #     user = User.find(params[:id])
-    #     records = Record.all.filter{|x| x.user_id===user.user_id}
-    #     render json: records
-    # end 
-
-    def latest_starters
-        user = User.find(params[:id])
-        players = Player.all 
-        records = Record.all.filter{|x| x.user_id===user.user_id && x.sub===false}
-        records_player_ids = records.map{|x| x.player_id}
-        user_players = players.select{|x| records_player_ids.include?(x.player_id)}
-        render json: user_players
-    end 
-
-    def gw_starters
-        user_id = params[:id].to_i
-        gw_id = params[:gameweek_id].to_i
-        records = Record.all.filter{ |r| r.gameweek_id === gw_id && r.user_id === user_id && r.sub === false }
-        player_ids = records.map{ |r| r.player_id }
-        players = Player.all.filter{ |p| player_ids.include?(p.player_id) }
-        render json: players
-    end 
-
-    def latest_subs 
-        user = User.find(params[:id])
-        players = Player.all 
-        records = Record.all.filter{|x| x.user_id===user.user_id && x.sub===true}
-        records_player_ids = records.map{|x| x.player_id}
-        user_players = players.select{|x| records_player_ids.include?(x.player_id)}
-        render json: user_players
-    end 
-
-    def gw_subs 
-        user_id = params[:id].to_i
-        gw_id = params[:gameweek_id].to_i
-        records = Record.all.filter{ |r| r.gameweek_id === gw_id && r.user_id === user_id && r.sub }
-        player_ids = records.map{ |r| r.player_id }
-        players = Player.all.filter{ |p| player_ids.include?(p.player_id) }
-        render json: players
-    end 
-
     # def pg_joiners
         
     #     # id = params[:gameweek_id].to_i
