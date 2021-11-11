@@ -17,7 +17,7 @@ include HelperModule
         render json: record
     end
 
-    def destroy 
+    def destroy
         record = Record.find(params[:id])
         record.delete
     end 
