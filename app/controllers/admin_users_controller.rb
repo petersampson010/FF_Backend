@@ -52,14 +52,14 @@ include HelperModule
             if ug_joiners.length()>0
                 return_array << {
                     user_id: u.user_id,
-                    team_name: u.teamname,
+                    team_name: u.team_name,
                     total_points: total_points,
                     gw_points: ug_joiners[-1].total_points
                 }
             else 
                 return_array << {
                     user_id: u.user_id,
-                    team_name: u.teamname,
+                    team_name: u.team_name,
                     total_points: 0,
                     gw_points: 0
                 }

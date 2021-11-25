@@ -17,6 +17,13 @@ include HelperModule
         render json: record
     end
 
+    def custom_update
+        records = Record.all
+        record = find_from_params(records, request.GET)[0]
+        record.update(record_params)
+        render json: record
+    end
+
     def destroy
         record = Record.find(params[:id])
         record.delete
@@ -26,7 +33,7 @@ include HelperModule
     private 
 
     def record_params 
-        params.permit(:record_id, :sub, :captain, :vice_captain, :user_id, :player_id, :gameweek_id)
+        params.permit(:record_id, :sub, :captain, :vice_captain, :user_id, :player_id, :gameweek_id, :admin_user_id)
     end 
 
 end

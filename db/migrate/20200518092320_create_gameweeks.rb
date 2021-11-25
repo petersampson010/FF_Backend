@@ -5,6 +5,7 @@ class CreateGameweeks < ActiveRecord::Migration[6.0]
       t.string :date, null: false
       t.string :opponent, null: false
       t.string :score
+      t.integer :gameweek, null: false
       t.boolean :complete, null: false
       t.integer :admin_user_id, null: false
 

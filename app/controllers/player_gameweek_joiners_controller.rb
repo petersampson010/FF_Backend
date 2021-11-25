@@ -51,6 +51,6 @@ include HelperModule
     private
 
     def pg_joiner_params
-        params.permit(:pg_id, :minutes, :assists, :goals, :own_goals, :y_cards, :r_cards, :bonus, :penalty_miss, :goals_conceded, :total_points, :player_id, :gameweek_id)
+        params.permit(:pg_id, :minutes, :assists, :goals, :own_goals, :y_cards, :r_cards, :bonus, :penalty_miss, :goals_conceded, :total_points, :player_id, :gameweek_id, :admin_user_id)
     end 
 end

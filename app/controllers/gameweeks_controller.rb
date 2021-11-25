@@ -36,6 +36,6 @@ include HelperModule
     private
 
     def gameweek_params 
-        params.permit(:gameweek_id, :date, :opponent, :score, :complete, :admin_user_id)
+        params.permit(:gameweek_id, :date, :opponent, :score, :complete, :gameweek, :admin_user_id)
     end 
 end

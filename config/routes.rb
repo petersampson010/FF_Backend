@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   get '/records/user_id/:user_id', to: 'records#by_user_id'
 
   get '/players/stats/:p_id/:gw_id', to: 'players#stats'
+
+  patch '/records', to: 'records#custom_update'
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

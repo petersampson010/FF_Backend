@@ -7,13 +7,13 @@ include HelperModule
     end 
 
     def create
-        user_gameweek_joiner = UserGameweekJoiner.create(user_gameweek_joiner_params)
+        user_gameweek_joiner = UserGameweekJoiner.create(ug_joiner_params)
         render json: user_gameweek_joiner
     end 
 
     def update
         user_gameweek_joiner = UserGameweekJoiner.find(params[:id])
-        user_gameweek_joiner.update(user_gameweek_joiner_params)
+        user_gameweek_joiner.update(ug_joiner_params)
         render json: user_gameweek_joiner
     end 
 
@@ -36,7 +36,7 @@ include HelperModule
     private 
 
     def ug_joiner_params
-        params.permit(:ug_id, :total_points, :user_id, :gameweek_id)
+        params.permit(:ug_id, :total_points, :user_id, :gameweek_id, :admin_user_id)
     end
 
 end

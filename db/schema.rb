@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2021_07_20_152337) do
     t.string "date", null: false
     t.string "opponent", null: false
     t.string "score"
+    t.integer "gameweek", null: false
     t.boolean "complete", null: false
     t.integer "admin_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -51,6 +52,15 @@ ActiveRecord::Schema.define(version: 2021_07_20_152337) do
     t.integer "total_points"
     t.integer "player_id", null: false
     t.integer "gameweek_id", null: false
+    t.integer "admin_user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "player_user_gameweek_joiners", force: :cascade do |t|
+    t.string "user_id"
+    t.string "player_id"
+    t.string "gameweek_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -72,8 +82,9 @@ ActiveRecord::Schema.define(version: 2021_07_20_152337) do
     t.boolean "captain"
     t.boolean "vice_captain"
     t.integer "user_id"
-    t.integer "player_id"
-    t.integer "gameweek_id"
+    t.integer "player_id", null: false
+    t.integer "gameweek_id", null: false
+    t.integer "admin_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -82,16 +93,18 @@ ActiveRecord::Schema.define(version: 2021_07_20_152337) do
     t.integer "total_points", null: false
     t.integer "user_id", null: false
     t.integer "gameweek_id", null: false
+    t.integer "admin_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", primary_key: "user_id", force: :cascade do |t|
     t.string "email"
-    t.string "teamname", null: false
+    t.string "team_name", null: false
     t.string "password", null: false
     t.integer "transfers", null: false
     t.float "budget", null: false
+    t.integer "gw_start", null: false
     t.integer "admin_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

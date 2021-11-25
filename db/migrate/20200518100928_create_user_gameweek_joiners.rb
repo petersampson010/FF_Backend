@@ -5,6 +5,7 @@ class CreateUserGameweekJoiners < ActiveRecord::Migration[6.0]
       t.integer :total_points, null: false
       t.integer :user_id, null: false
       t.integer :gameweek_id, null: false
+      t.integer :admin_user_id, null: false
 
       t.timestamps
     end
