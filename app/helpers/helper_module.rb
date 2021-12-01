@@ -2,8 +2,6 @@ module HelperModule
 
     def find_from_params(field, params)
         size = params.keys.length
-        puts field
-        puts params
         if size===1 
             key = params.keys[0]
             value = params.values[0]

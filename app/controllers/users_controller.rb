@@ -27,27 +27,6 @@ class UsersController < ApplicationController
         user.delete
     end 
 
-    # def pg_joiners
-        
-    #     # id = params[:gameweek_id].to_i
-    #     # user = User.find(params[:id])
-    #     # puts user
-    #     # user_gameweeks = user.gameweeks
-    #     # puts user_gameweeks
-    #     # puts 'hi'
-    #     # pgj_all = PlayerGameweekJoiner.all
-    #     # puts pgj_all
-    #     # pg_joiners = []
-    #     # for i in user_gameweeks do 
-    #     #     pgj = pgj_all.select{ |pgj| pgj.gameweek_id===i.gameweek_id}
-    #     #     for j in pgj do 
-    #     #         pg_joiners << j 
-    #     #     end 
-    #     # end 
-    #     # # user.player_gameweek_joiners.filter{|pg| pg.gameweek_id===id}
-    #     # render json: pg_joiners
-    # end 
-
     def total_points 
         user = User.find(params[:id])
         user_gameweek_joiners = user.user_gameweek_joiners

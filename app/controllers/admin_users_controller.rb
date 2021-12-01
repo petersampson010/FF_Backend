@@ -8,8 +8,6 @@ include HelperModule
     end 
 
     def create
-        puts 'atleast hit please'
-        puts params
         admin_user = AdminUser.create(admin_user_params)
         render json: admin_user
     end 
