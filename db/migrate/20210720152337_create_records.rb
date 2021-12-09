@@ -5,7 +5,7 @@ class CreateRecords < ActiveRecord::Migration[6.0]
       t.boolean :sub
       t.boolean :captain
       t.boolean :vice_captain
-      t.integer :user_id
+      t.integer :user_id, null: false
       t.integer :player_id, null: false
       t.integer :gameweek_id, null: false
       t.integer :admin_user_id, null: false
