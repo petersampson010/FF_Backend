@@ -19,8 +19,12 @@ include HelperModule
 
     def custom_update
         records = Record.all
+        puts request.GET
         record = find_from_params(records, request.GET)[0]
-        record.update(record_params)
+        puts record.player_id 
+        puts request.POST.except!("record")
+        record.update(request.POST.except!("record"))
+        puts record
         render json: record
     end
 
@@ -35,5 +39,9 @@ include HelperModule
     def record_params 
         params.permit(:record_id, :sub, :captain, :vice_captain, :user_id, :player_id, :gameweek_id, :admin_user_id)
     end 
+
+    def patch_body_params
+        request.POST.permit(:record_id, :sub, :captain, :vice_captain, :user_id, :player_id, :gameweek_id, :admin_user_id)
+    end
 
 end
