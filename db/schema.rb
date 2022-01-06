@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_20_152337) do
+ActiveRecord::Schema.define(version: 2022_01_05_170230) do
 
   create_table "admin_users", primary_key: "admin_user_id", force: :cascade do |t|
     t.string "email", null: false
@@ -91,15 +91,17 @@ ActiveRecord::Schema.define(version: 2021_07_20_152337) do
   end
 
   create_table "users", primary_key: "user_id", force: :cascade do |t|
-    t.string "email"
-    t.string "team_name", null: false
-    t.string "password", null: false
-    t.integer "transfers", null: false
-    t.float "budget", null: false
-    t.integer "gw_start", null: false
-    t.integer "admin_user_id", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "authentication_token", limit: 30
+    t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
 end

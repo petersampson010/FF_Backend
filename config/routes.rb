@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
+  # devise_for :users
+  resources :sessions
+  resources :users
   resources :records
   resources :messages
   resources :user_gameweek_joiners
   resources :player_gameweek_joiners
   resources :admin_users
   resources :gameweeks
-  resources :users
   resources :players
   
   get '/users/:id/:gameweek_id/pg_joiners', to: 'users#pg_joiners'
