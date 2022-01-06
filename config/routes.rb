@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
+  # devise_for :admin_users
   # devise_for :users
   resources :sessions
   resources :users
+  resources :admin_users
   resources :records
   resources :messages
   resources :user_gameweek_joiners
   resources :player_gameweek_joiners
-  resources :admin_users
   resources :gameweeks
   resources :players
   

@@ -1,5 +1,5 @@
 class AdminUsersController < ApplicationController
-include HelperModule
+    include HelperModule
 
     def index 
         admin_users = AdminUser.all
@@ -8,8 +8,13 @@ include HelperModule
     end 
 
     def create
-        admin_user = AdminUser.create(admin_user_params)
-        render json: admin_user
+        @admin_user = AdminUser.new(admin_user_params)
+        if @admin_user.save
+            render json: @admin_user
+        else 
+            head(:unprocessable_entity)
+        end 
+        puts @admin_user.errors.full_messages
     end 
 
     # def show 
@@ -76,7 +81,7 @@ include HelperModule
     private 
 
     def admin_user_params 
-        params.permit(:admin_user_id, :email, :password, :club_name)
+        params.permit(:email, :password, :password_confirmation, :club_name)
     end 
 
 

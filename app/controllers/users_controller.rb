@@ -15,11 +15,12 @@ class UsersController < ApplicationController
         else 
             head(:unprocessable_entity)
         end 
+        puts @user.errors.full_messages
     end 
     
     private 
     def user_params
-        params.permit(:email, :password, :password_confirmation)
+        params.permit(:email, :password, :password_confirmation, :team_name, :transfers, :budget, :gw_start, :admin_user_id)
     end 
 end
     
