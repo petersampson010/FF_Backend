@@ -12,7 +12,7 @@ class AdminUsersController < ApplicationController
         if @admin_user.save
             render json: @admin_user
         else 
-            head(:unprocessable_entity)
+            render json: {"errors": @admin_user.errors.full_messages}, status: :bad_request
         end 
         puts @admin_user.errors.full_messages
     end 

@@ -6,14 +6,12 @@ class UsersController < ApplicationController
         render json: User.all
     end
 
-
-
     def create 
         @user = User.new(user_params)
         if @user.save
             render json: @user 
         else 
-            head(:unprocessable_entity)
+            render json: {"errors": @user.errors.full_messages}, status: :bad_request
         end 
         puts @user.errors.full_messages
     end 
