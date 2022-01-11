@@ -1,9 +1,8 @@
 class User < ApplicationRecord
-
-    has_many :records
-
-    has_many :user_gameweek_joiners
-    has_many :gameweeks, through: :user_gameweek_joiners
-
-    has_one :admin_user
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, 
+        :jwt_authenticatable,
+        :registerable,
+        jwt_revocation_strategy: JwtDenylist
 end

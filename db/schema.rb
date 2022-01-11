@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_20_152337) do
+ActiveRecord::Schema.define(version: 2022_01_11_151913) do
 
   create_table "admin_users", primary_key: "admin_user_id", force: :cascade do |t|
     t.string "email", null: false
@@ -29,6 +29,12 @@ ActiveRecord::Schema.define(version: 2021_07_20_152337) do
     t.integer "admin_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "jwt_denylist", force: :cascade do |t|
+    t.string "jti", null: false
+    t.datetime "exp", null: false
+    t.index ["jti"], name: "index_jwt_denylist_on_jti"
   end
 
   create_table "messages", primary_key: "message_id", force: :cascade do |t|
@@ -91,15 +97,20 @@ ActiveRecord::Schema.define(version: 2021_07_20_152337) do
   end
 
   create_table "users", primary_key: "user_id", force: :cascade do |t|
-    t.string "email"
-    t.string "team_name", null: false
-    t.string "password", null: false
-    t.integer "transfers", null: false
-    t.float "budget", null: false
-    t.integer "gw_start", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "team_name"
+    t.integer "transfers"
+    t.integer "budget"
+    t.integer "gw_start"
     t.integer "admin_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
 end
