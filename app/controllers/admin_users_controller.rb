@@ -8,13 +8,15 @@ class AdminUsersController < ApplicationController
     end 
 
     def create
-        @admin_user = AdminUser.new(admin_user_params)
-        if @admin_user.save
-            render json: @admin_user
-        else 
-            render json: {"errors": @admin_user.errors.full_messages}, status: :bad_request
-        end 
-        puts @admin_user.errors.full_messages
+        puts params[:token]
+        obj = JWT.decode params[:token], 8f1d5aa63132ef5bb27e80d8b6ac3c486820f25770786d1204e4e92062395316195911730c42a418bdcef44ec8353009425d814e8615cb82c41d4873c9f989c8, 'HS256'
+        puts obj
+        # @admin_user = AdminUser.new(admin_user_params)
+        # if @admin_user.save
+        #     render json: @admin_user
+        # else 
+        #     render json: {"errors": @admin_user.errors.full_messages}, status: :bad_request
+        # end
     end 
 
     # def show 

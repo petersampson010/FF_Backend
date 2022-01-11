@@ -7,8 +7,12 @@ include HelperModule
     end 
 
     def create
-        player = Player.create(player_params)
-        render json: player
+        @player = Player.new(player_params)
+        if @player.save
+            render json: @player
+        else 
+            render json: {"errors": @player.errors.full_messages}, status: :bad_request
+        end
     end 
 
     def  update 

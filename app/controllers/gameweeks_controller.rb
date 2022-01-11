@@ -7,8 +7,12 @@ include HelperModule
     end 
 
     def create
-        gameweek = Gameweek.create(gameweek_params)
-        render json: gameweek
+        @gameweek = Gameweek.new(gameweek_params)
+        if @gameweek.save
+            render json: @gameweek
+        else 
+            render json: {"errors": @gameweek.errors.full_messages}, status: :bad_request
+        end
     end 
 
     # def show

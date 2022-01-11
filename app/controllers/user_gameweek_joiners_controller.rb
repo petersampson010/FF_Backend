@@ -7,8 +7,12 @@ include HelperModule
     end 
 
     def create
-        user_gameweek_joiner = UserGameweekJoiner.create(ug_joiner_params)
-        render json: user_gameweek_joiner
+        @ugj = UserGameweekJoiner.new(ug_joiner_params)
+        if @ugj.save
+            render json: @ugj
+        else 
+            render json: {"errors": @ugj.errors.full_messages}, status: :bad_request
+        end
     end 
 
     def update

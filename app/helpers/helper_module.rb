@@ -18,4 +18,12 @@ module HelperModule
         end
     end
 
+    def decode_payload(token)
+        puts token
+        payload = JWT.decode token, Rails.application.secrets.secret_key_base, 'HS256'
+        puts 'payload below...'
+        puts payload
+        return payload[0]
+    end 
+
 end

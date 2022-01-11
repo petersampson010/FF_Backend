@@ -6,14 +6,14 @@ class UsersController < ApplicationController
         render json: User.all
     end
 
-    def create 
-        @user = User.new(user_params)
+    def create
+        payload = decode_payload(params[:token])
+        @user = User.new(payload)
         if @user.save
             render json: @user 
         else 
             render json: {"errors": @user.errors.full_messages}, status: :bad_request
-        end 
-        puts @user.errors.full_messages
+        end
     end 
     
     private 
@@ -21,4 +21,3 @@ class UsersController < ApplicationController
         params.permit(:email, :password, :password_confirmation, :team_name, :transfers, :budget, :gw_start, :admin_user_id)
     end 
 end
-    

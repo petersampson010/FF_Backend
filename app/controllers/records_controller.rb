@@ -7,8 +7,12 @@ include HelperModule
     end 
 
     def create
-        record = Record.create(record_params)
-        render json: record
+        @record = Record.new(record_params)
+        if @record.save
+            render json: @record
+        else 
+            render json: {"errors": @record.errors.full_messages}, status: :bad_request
+        end
     end 
 
     def update

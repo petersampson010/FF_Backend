@@ -7,8 +7,12 @@ include HelperModule
     end
 
     def create 
-        message = Message.create(message_params)
-        render json: message
+        @message = Message.new(message_params)
+        if @message.save
+            render json: @message
+        else 
+            render json: {"errors": @message.errors.full_messages}, status: :bad_request
+        end
     end 
 
     private 

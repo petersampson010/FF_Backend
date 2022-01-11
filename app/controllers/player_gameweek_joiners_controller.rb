@@ -7,8 +7,12 @@ include HelperModule
     end 
 
     def create
-        player_gameweek_joiner = PlayerGameweekJoiner.create(pg_joiner_params)
-        render json: player_gameweek_joiner
+        @pgj = PlayerGameweekJoiner.new(pg_joiner_params)
+        if @pgj.save
+            render json: @pgj
+        else 
+            render json: {"errors": @pgj.errors.full_messages}, status: :bad_request
+        end
     end 
 
     def update

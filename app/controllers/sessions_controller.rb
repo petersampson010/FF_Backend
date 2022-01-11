@@ -3,12 +3,12 @@ class SessionsController < ApplicationController
 
     # Creating a session, not a User 
     def create 
-        user = User.where(email: params[:email]).first
+        @user = User.where(email: params[:email]).first
 
-        if user&.valid_password?(params[:password])
+        if @user&.valid_password?(params[:password])
             render json: user
         else 
-            head(:unauthorized)
+            render json: {"errors": @user.errors.full_messages}, status: :bad_request
         end 
     end 
 
