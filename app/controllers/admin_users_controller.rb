@@ -12,6 +12,19 @@ include HelperModule
         render json: admin_user
     end 
 
+    def sign_in 
+        @admin_user = User.find_by_email(admin_user_params[:email])
+        if @admin_user 
+            if @admin_user.authenticate(admin_user_params[:password])
+                render json: jwt_encode({admin_user_id: @admin_user.user_id})
+            else 
+                render json: {error: 'Incorrect Password'}
+            end 
+        else 
+            render json: {error: 'Incorrect Email'}
+        end 
+    end
+
     # def show 
     #     admin_user = AdminUser.find(params[:id])
     #     render json: admin_user 

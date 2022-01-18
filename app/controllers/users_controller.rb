@@ -11,6 +11,19 @@ class UsersController < ApplicationController
         render json: user
     end 
 
+    def sign_in 
+        @user = User.find_by_email(user_params[:email])
+        if @user 
+            if @user.authenticate(user_params[:password])
+                render json: jwt_encode({user_id: @user.user_id})
+            else 
+                render json: {error: 'Incorrect Password'}
+            end 
+        else 
+            render json: {error: 'Incorrect Email'}
+        end 
+    end
+
     # def show
     #     user = User.find(params[:id])
     #     render json: user
@@ -36,8 +49,10 @@ class UsersController < ApplicationController
 
     private 
 
+    attr_accessor :password
+
     def user_params 
-        params.permit(:user_id, :email, :team_name, :password, :transfers, :budget, :gw_start, :admin_user_id)
+        params.permit(:user_id, :email, :team_name, :password, :password_confirmation, :transfers, :budget, :gw_start, :admin_user_id)
     end 
 
 end
