@@ -94,9 +94,9 @@ ActiveRecord::Schema.define(version: 2021_07_20_152337) do
     t.string "email"
     t.string "team_name", null: false
     t.string "password_digest", null: false
-    t.integer "transfers", null: false
-    t.float "budget", null: false
-    t.integer "gw_start", null: false
+    t.integer "transfers"
+    t.float "budget"
+    t.integer "gw_start"
     t.integer "admin_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

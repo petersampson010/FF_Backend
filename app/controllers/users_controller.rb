@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
     include HelperModule
+    skip_before_action :authenticate_request, only: [:create]
 
     def index
         users = User.all
@@ -7,8 +8,13 @@ class UsersController < ApplicationController
     end 
 
     def create
-        user = User.create(user_params)
-        render json: user
+        @user = User.new(user_params)
+        if @user.save
+            token = jwt_encode({user_id: @user.user_id})
+            render json: {user: @user, token: token}
+        else
+            render json @user.error.full_messages
+        end 
     end 
 
     def sign_in 
