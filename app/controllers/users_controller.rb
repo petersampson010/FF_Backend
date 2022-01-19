@@ -13,7 +13,7 @@ class UsersController < ApplicationController
             token = jwt_encode({user_id: @user.user_id})
             render json: {user: @user, token: token}
         else
-            render json @user.error.full_messages
+            render json: @user.errors.full_messages
         end 
     end 
 

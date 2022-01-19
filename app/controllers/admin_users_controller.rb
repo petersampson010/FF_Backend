@@ -1,15 +1,21 @@
 class AdminUsersController < ApplicationController
 include HelperModule
+skip_before_action :authenticate_request, only: [:create, :index]
+
 
     def index 
         admin_users = AdminUser.all
         render json: find_from_params(admin_users, admin_user_params)
-
     end 
 
     def create
-        admin_user = AdminUser.create(admin_user_params)
-        render json: admin_user
+        @admin_user = AdminUser.new(admin_user_params)
+        if @admin_user.save
+            token = jwt_encode({admin_user_id: @admin_user.admin_user_id})
+            render json: {admin_user: @admin_user, token: token}
+        else
+            render json: @admin_user.errors.full_messages
+        end 
     end 
 
     def sign_in 

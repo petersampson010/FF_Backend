@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2021_07_20_152337) do
     t.string "club_name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_admin_users_on_email", unique: true
   end
 
   create_table "gameweeks", primary_key: "gameweek_id", force: :cascade do |t|
