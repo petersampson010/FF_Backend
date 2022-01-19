@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 2021_07_20_152337) do
   create_table "players", primary_key: "player_id", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
-    t.string "position", null: false
+    t.integer "position", null: false
     t.float "price", null: false
     t.string "availability", null: false
     t.integer "admin_user_id", null: false
