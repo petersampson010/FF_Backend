@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2021_07_20_152337) do
     t.string "club_name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["club_name"], name: "index_admin_users_on_club_name", unique: true
     t.index ["email"], name: "index_admin_users_on_email", unique: true
   end
 
@@ -101,6 +102,8 @@ ActiveRecord::Schema.define(version: 2021_07_20_152337) do
     t.integer "admin_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["team_name"], name: "index_users_on_team_name", unique: true
   end
 
 end

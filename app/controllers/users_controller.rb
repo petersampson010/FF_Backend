@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
     include HelperModule
-    skip_before_action :authenticate_request, only: [:create]
+    skip_before_action :authenticate_request, only: [:create, :index]
 
     def index
+        puts request.headers["Authorization"]
         users = User.all
         render json: find_from_params(users, user_params)
     end 
@@ -23,10 +24,10 @@ class UsersController < ApplicationController
             if @user.authenticate(user_params[:password])
                 render json: jwt_encode({user_id: @user.user_id})
             else 
-                render json: {error: 'Incorrect Password'}
+                render json: {errors: ['Incorrect Password']}
             end 
         else 
-            render json: {error: 'Incorrect Email'}
+            render json: {errors: ['Incorrect Email']}
         end 
     end
 

@@ -29,7 +29,9 @@ module HelperModule
 
     def authenticate_request
         auth_header = request.headers["Authorization"]
+        puts auth_header
         token = auth_header.split(' ').last if auth_header
+        puts token
         begin
             @decoded = jwt_decode(token)
             @current_user = User.find(@decoded["user_id"])

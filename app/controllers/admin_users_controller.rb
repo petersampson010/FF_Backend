@@ -14,6 +14,7 @@ skip_before_action :authenticate_request, only: [:create, :index]
             token = jwt_encode({admin_user_id: @admin_user.admin_user_id})
             render json: {admin_user: @admin_user, token: token}
         else
+            puts @admin_user.errors.full_messages
             render json: @admin_user.errors.full_messages
         end 
     end 
@@ -24,10 +25,10 @@ skip_before_action :authenticate_request, only: [:create, :index]
             if @admin_user.authenticate(admin_user_params[:password])
                 render json: jwt_encode({admin_user_id: @admin_user.user_id})
             else 
-                render json: {error: 'Incorrect Password'}
+                render json: {errors: ['Incorrect Password']}
             end 
         else 
-            render json: {error: 'Incorrect Email'}
+            render json: {errors: ['Incorrect Email']}
         end 
     end
 
