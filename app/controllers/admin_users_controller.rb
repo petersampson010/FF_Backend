@@ -1,6 +1,6 @@
 class AdminUsersController < ApplicationController
 include HelperModule
-skip_before_action :authenticate_request, only: [:create, :index]
+skip_before_action :authenticate_request, only: [:create, :index, :sign_in]
 
 
     def index 
@@ -20,10 +20,13 @@ skip_before_action :authenticate_request, only: [:create, :index]
     end 
 
     def sign_in 
-        @admin_user = User.find_by_email(admin_user_params[:email])
+        puts params
+        puts admin_user_params
+        @admin_user = AdminUser.find_by_email(admin_user_params[:email])
         if @admin_user 
             if @admin_user.authenticate(admin_user_params[:password])
-                render json: jwt_encode({admin_user_id: @admin_user.user_id})
+                token = jwt_encode({admin_user_id: @admin_user.admin_user_id})
+                render json: {admin_user: @admin_user, token: token}
             else 
                 render json: {errors: ['Incorrect Password']}
             end 
@@ -32,29 +35,12 @@ skip_before_action :authenticate_request, only: [:create, :index]
         end 
     end
 
-    # def show 
-    #     admin_user = AdminUser.find(params[:id])
-    #     render json: admin_user 
-    # end 
-
-    # def players
-    #     admin_user = AdminUser.find(params[:id])
-    #     players = admin_user.players
-    #     render json: players
-    # end 
-
     def destroy 
         admin_user = AdminUser.find(params[:id])
         admin_user.delete
         admin_users = AdminUser.all
         render json: admin_users
     end 
-
-    # def club_game
-    #     admin_user = AdminUser.find(params[:id])
-    #     pg_joiners = admin_user.player_gameweek_joiners.filter{|pg| pg.gameweek_id===params[:gw_id]}
-    #     render json: pg_joiners 
-    # end 
 
     def league 
         admin_user = AdminUser.find(params[:id])
@@ -85,13 +71,6 @@ skip_before_action :authenticate_request, only: [:create, :index]
         end
         render json: return_array
     end 
-
-    # def ug_joiners
-    #     admin_user = AdminUser.find(params[:id])
-    #     user_gameweek_joiners = admin_user.user_gameweek_joiners.filter{|ug| ug.gameweek_id===params[:gw_id].to_i}
-    #     render json: user_gameweek_joiners
-    # end 
-
 
     private 
 

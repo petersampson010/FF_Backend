@@ -7,31 +7,30 @@ include HelperModule
     end 
 
     def create
-        gameweek = Gameweek.create(gameweek_params)
-        render json: gameweek
+        @gameweek = Gameweek.new(gameweek_params) 
+        if @gameweek.save
+            render json: @gameweek
+        else 
+            render json: @gameweek.errors.full_messages
+        end 
     end 
 
-    # def show
-    #     gameweek = Gameweek.find(params[:id])
-    #     render json: gameweek
-    # end 
-
     def update
-        gameweek = Gameweek.find(params[:id])
-        gameweek.update(gameweek_params)
-        render json: gameweek
+        @gameweek = Gameweek.find(params[:id])
+        if @gameweek.update(gameweek_params)
+            render json: @gameweek
+        else 
+            render json: @gameweek.errors.full_messages
+        end 
     end 
 
     def destroy 
-        gameweek = Gameweek.find(gameweek_params[:id])
-        gameweek.delete
+        @gameweek = Gameweek.find(gameweek_params[:id])
+        if @gameweek.delete
+        else 
+            render json: @gameweek.errors.full_messages
+        end 
     end 
-
-    # def admin_user
-    #     id = params[:id].to_i
-    #     admin_user_gameweeks = Gameweek.all.filter{|x| x.admin_user_id===id}
-    #     render json: admin_user_gameweeks
-    # end 
 
     private
 

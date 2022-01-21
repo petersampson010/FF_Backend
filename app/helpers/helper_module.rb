@@ -1,5 +1,5 @@
 module HelperModule
-
+    
     def find_from_params(field, params)
         size = params.keys.length
         if size===1 
@@ -17,6 +17,8 @@ module HelperModule
             return field
         end
     end
+
+    private 
 
     def jwt_encode(payload, expiration = 24.hours.from_now.to_i)
         payload[:exp] = expiration

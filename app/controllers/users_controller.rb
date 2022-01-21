@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
     include HelperModule
-    skip_before_action :authenticate_request, only: [:create, :index]
+    skip_before_action :authenticate_request, only: [:create, :index, :sign_in]
 
     def index
         puts request.headers["Authorization"]
@@ -22,7 +22,8 @@ class UsersController < ApplicationController
         @user = User.find_by_email(user_params[:email])
         if @user 
             if @user.authenticate(user_params[:password])
-                render json: jwt_encode({user_id: @user.user_id})
+                token = jwt_encode({user_id: @user.user_id})
+                render json: {user: @user, token: token}
             else 
                 render json: {errors: ['Incorrect Password']}
             end 
@@ -31,20 +32,21 @@ class UsersController < ApplicationController
         end 
     end
 
-    # def show
-    #     user = User.find(params[:id])
-    #     render json: user
-    # end 
-
     def update
-        user = User.find(params[:id])
-        user.update(user_params)
-        render json: user
+        @user = User.find(params[:id])
+        if @user.update(user_params)
+            render json: @user
+        else 
+            render json: @user.errors.full_messages
+        end 
     end
 
     def destroy 
-        user = User.find(params[:id])
-        user.delete
+        @user = User.find(params[:id])
+        if @user.delete
+        else
+            render json: @user.errors.full_messages
+        end 
     end 
 
     def total_points 

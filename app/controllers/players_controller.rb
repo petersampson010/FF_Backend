@@ -2,24 +2,36 @@ class PlayersController < ApplicationController
 include HelperModule
 
     def index 
+        puts params
+        puts player_params
         players = Player.all
         render json: find_from_params(players, player_params)
     end 
 
     def create
-        player = Player.create(player_params)
-        render json: player
+        @player = Player.new(player_params)
+        if @player.save
+            render json: @player
+        else 
+            render json: @player.errors.full_messages
+        end 
     end 
 
     def  update 
         player = Player.find(params[:id])
-        player.update(player_params)
-        render json: player
+        if @player.update(player_params)
+            render json: @player
+        else 
+            render json: @player.errors.full_messages
+        end 
     end
 
     def destroy 
-        player = Player.find(params[:id])
-        player.delete
+        @player = Player.find(params[:id])
+        if @player.delete
+        else 
+            render json: @player.errors.full_messages
+        end
     end 
 
     def stats 
