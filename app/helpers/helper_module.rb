@@ -30,14 +30,18 @@ module HelperModule
     end 
 
     def authenticate_request
+        puts '**** AUTHENTICATING ****'
         auth_header = request.headers["Authorization"]
-        puts auth_header
+        puts 'auth header: ' + auth_header
         token = auth_header.split(' ').last if auth_header
-        puts token
+        puts 'auth token: ' + token
         begin
             @decoded = jwt_decode(token)
-            @current_user = User.find(@decoded["user_id"])
-            puts @user
+            if @decoded["user_id"] 
+                @current_user = User.find(@decoded["user_id"])
+            else 
+                @current_user = AdminUser.find(@decoded["admin_user_id"])
+            end
         rescue ActiveRecord::RecordNotFound => e
             render json: { errors: e.message }, status: :unauthorized
         rescue JWT::DecodeError => e

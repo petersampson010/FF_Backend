@@ -1,5 +1,7 @@
 class PlayersController < ApplicationController
 include HelperModule
+skip_before_action :authenticate_request, only: [:index]
+
 
     def index 
         puts params
