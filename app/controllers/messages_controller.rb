@@ -1,5 +1,7 @@
 class MessagesController < ApplicationController
 include HelperModule
+skip_before_action :authenticate_request, only: [:index]
+
 
     def index
         messages = Message.all

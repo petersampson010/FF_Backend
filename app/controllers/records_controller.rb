@@ -1,5 +1,7 @@
 class RecordsController < ApplicationController
 include HelperModule
+skip_before_action :authenticate_request, only: [:index]
+
 
     def index 
         records = Record.all
