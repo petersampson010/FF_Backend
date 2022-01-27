@@ -1,5 +1,7 @@
 class UserGameweekJoinersController < ApplicationController
 include HelperModule  
+skip_before_action :authenticate_request, only: [:index]
+
 
     def index
         ug_joiners = UserGameweekJoiner.all
