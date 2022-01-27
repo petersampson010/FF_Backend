@@ -7,31 +7,30 @@ include HelperModule
     end 
 
     def create
-        user_gameweek_joiner = UserGameweekJoiner.create(ug_joiner_params)
-        render json: user_gameweek_joiner
+        @user_gameweek_joiner = UserGameweekJoiner.new(ug_joiner_params)
+        if @user_gameweek_joiner.save
+            render json: @user_gameweek_joiner
+        else 
+            render json: @user_gameweek_joiner.errors.full_messages
+        end 
     end 
 
     def update
-        user_gameweek_joiner = UserGameweekJoiner.find(params[:id])
-        user_gameweek_joiner.update(ug_joiner_params)
-        render json: user_gameweek_joiner
+        @user_gameweek_joiner = UserGameweekJoiner.find(params[:id])
+        if @user_gameweek_joiner.update(ug_joiner_params)
+            render json: @user_gameweek_joiner
+        else
+            render json: @user_gameweek_joiner.errors.full_messages
+        end
     end 
-
-    # def show
-    #     user_gameweek_joiner = UserGameweekJoiner.find(params[:id])
-    #     render json: user_gameweek_joiner
-    # end 
 
     def destroy 
-        user_gameweek_joiner = UserGameweekJoiner.find(params[:id])
-        user_gameweek_joiner.delete
+        @user_gameweek_joiner = UserGameweekJoiner.find(params[:id])
+        if @user_gameweek_joiner.delete
+        else 
+            render json: @user_gameweek_joiner.errors.full_messages
+        end 
     end 
-
-    # def user
-    #     user_gameweek_joiners = UserGameweekJoiner.all
-    #     user_gameweek_joiners = user_gameweek_joiners.filter{|ug| ug.gameweek_id===params[:gw_id].to_i && ug.user_id===params[:id].to_i}
-    #     render json: user_gameweek_joiners[0]
-    # end 
 
     private 
 

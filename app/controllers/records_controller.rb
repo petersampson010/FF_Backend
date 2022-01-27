@@ -7,14 +7,21 @@ include HelperModule
     end 
 
     def create
-        record = Record.create(record_params)
-        render json: record
+        @record = Record.new(record_params)
+        if @record.save 
+            render json: @record
+        else 
+            render json: @record.errors.full_messages
+        end 
     end 
 
     def update
-        record = Record.find(params[:id])
-        record.update(record_params)
-        render json: record
+        @record = Record.find(params[:id])
+        if @record.update(record_params)
+            render json: @record
+        else 
+            render json: @record.errors.full_messages
+        end 
     end
 
     def custom_update
@@ -29,10 +36,12 @@ include HelperModule
     end
 
     def destroy
-        record = Record.find(params[:id])
-        record.delete
+        @record = Record.find(params[:id])
+        if @record.delete
+        else 
+            render json: @record.errors.full_messages
+        end 
     end 
-
 
     private 
 

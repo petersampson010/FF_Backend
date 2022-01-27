@@ -1,27 +1,39 @@
 class AdminUsersController < ApplicationController
 include HelperModule
+skip_before_action :authenticate_request, only: [:create, :index, :sign_in]
+
 
     def index 
         admin_users = AdminUser.all
         render json: find_from_params(admin_users, admin_user_params)
-
     end 
 
     def create
-        admin_user = AdminUser.create(admin_user_params)
-        render json: admin_user
+        @admin_user = AdminUser.new(admin_user_params)
+        if @admin_user.save
+            token = jwt_encode({admin_user_id: @admin_user.admin_user_id})
+            render json: {admin_user: @admin_user, token: token}
+        else
+            puts @admin_user.errors.full_messages
+            render json: @admin_user.errors.full_messages
+        end 
     end 
 
-    # def show 
-    #     admin_user = AdminUser.find(params[:id])
-    #     render json: admin_user 
-    # end 
-
-    # def players
-    #     admin_user = AdminUser.find(params[:id])
-    #     players = admin_user.players
-    #     render json: players
-    # end 
+    def sign_in 
+        puts params
+        puts admin_user_params
+        @admin_user = AdminUser.find_by_email(admin_user_params[:email])
+        if @admin_user 
+            if @admin_user.authenticate(admin_user_params[:password])
+                token = jwt_encode({admin_user_id: @admin_user.admin_user_id})
+                render json: {admin_user: @admin_user, token: token}
+            else 
+                render json: {errors: ['Incorrect Password']}
+            end 
+        else 
+            render json: {errors: ['Incorrect Email']}
+        end 
+    end
 
     def destroy 
         admin_user = AdminUser.find(params[:id])
@@ -29,12 +41,6 @@ include HelperModule
         admin_users = AdminUser.all
         render json: admin_users
     end 
-
-    # def club_game
-    #     admin_user = AdminUser.find(params[:id])
-    #     pg_joiners = admin_user.player_gameweek_joiners.filter{|pg| pg.gameweek_id===params[:gw_id]}
-    #     render json: pg_joiners 
-    # end 
 
     def league 
         admin_user = AdminUser.find(params[:id])
@@ -65,13 +71,6 @@ include HelperModule
         end
         render json: return_array
     end 
-
-    # def ug_joiners
-    #     admin_user = AdminUser.find(params[:id])
-    #     user_gameweek_joiners = admin_user.user_gameweek_joiners.filter{|ug| ug.gameweek_id===params[:gw_id].to_i}
-    #     render json: user_gameweek_joiners
-    # end 
-
 
     private 
 

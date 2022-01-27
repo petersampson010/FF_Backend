@@ -7,37 +7,30 @@ include HelperModule
     end 
 
     def create
-        player_gameweek_joiner = PlayerGameweekJoiner.create(pg_joiner_params)
-        render json: player_gameweek_joiner
+        @player_gameweek_joiner = PlayerGameweekJoiner.new(pg_joiner_params)
+        if @player_gameweek_joiner.save
+            render json: @player_gameweek_joiner
+        else 
+            render json: @player_gameweek_joiner.errors.full_messages
+        end 
     end 
 
     def update
-        player_gameweek_joiner  = PlayerGameweekJoiner.find(params[:id])
-        player_gameweek_joiner.update(pg_joiner_params)
-        render json: player_gameweek_joiner
+        @player_gameweek_joiner = PlayerGameweekJoiner.find(params[:id])
+        if @player_gameweek_joiner.update(pg_joiner_params)
+            render json: @player_gameweek_joiner
+        else 
+            render json: @player_gameweek_joiner.errors.full_messages
+        end 
     end 
-
-    # def show
-    #     player_gameweek = PlayerGameweekJoiner.find(params[:id])
-    #     render json: player_gameweek
-    # end 
 
     def destroy 
         player_gameweek = PlayerGameweekJoiner.find(params[:id])
-        player_gameweek.delete
+        if @player_gameweek_joiner.delete
+        else 
+            render json: @player_gameweek.errors.full_messages
+        end
     end 
-
-    # def by_gw
-    #     player_gameweeks = PlayerGameweekJoiner.all
-    #     player_gameweeks = player_gameweeks.filter{|pg| pg.gameweek_id===params[:gw_id].to_i}
-    #     render json: player_gameweeks
-    # end 
-
-    # def find
-    #     player_gameweeks = PlayerGameweekJoiner.all
-    #     player_gameweek = player_gameweeks.filter{|pg| (pg.gameweek_id===params[:gw_id].to_i) && (pg.player_id===params[:p_id].to_i)}
-    #     render json: player_gameweek
-    # end
 
     def by_user
         records = Record.all.filter{ |r| r.user_id === params[:user_id].to_i}
@@ -45,8 +38,6 @@ include HelperModule
         pg_joiners = PlayerGameweekJoiner.all.filter{ |pgj| player_ids.include?(pgj.player_id)}
         render json: pg_joiners
     end
-
-        
 
     private
 

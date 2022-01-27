@@ -14,10 +14,12 @@ ActiveRecord::Schema.define(version: 2021_07_20_152337) do
 
   create_table "admin_users", primary_key: "admin_user_id", force: :cascade do |t|
     t.string "email", null: false
-    t.string "password", null: false
+    t.string "password_digest", null: false
     t.string "club_name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["club_name"], name: "index_admin_users_on_club_name", unique: true
+    t.index ["email"], name: "index_admin_users_on_email", unique: true
   end
 
   create_table "gameweeks", primary_key: "gameweek_id", force: :cascade do |t|
@@ -93,13 +95,15 @@ ActiveRecord::Schema.define(version: 2021_07_20_152337) do
   create_table "users", primary_key: "user_id", force: :cascade do |t|
     t.string "email"
     t.string "team_name", null: false
-    t.string "password", null: false
-    t.integer "transfers", null: false
-    t.float "budget", null: false
-    t.integer "gw_start", null: false
+    t.string "password_digest", null: false
+    t.integer "transfers"
+    t.float "budget"
+    t.integer "gw_start"
     t.integer "admin_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["team_name"], name: "index_users_on_team_name", unique: true
   end
 
 end

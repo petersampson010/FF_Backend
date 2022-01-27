@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   resources :gameweeks
   resources :users
   resources :players
+
+  get '/user_sign_in', to: 'users#sign_in'
+  get '/admin_user_sign_in', to: 'admin_users#sign_in'
   
   get '/users/:id/:gameweek_id/pg_joiners', to: 'users#pg_joiners'
   get '/users/:id/total_points', to: 'users#total_points'
