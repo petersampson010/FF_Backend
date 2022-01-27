@@ -19,7 +19,9 @@ class UsersController < ApplicationController
     end 
 
     def sign_in 
+        puts 'signing user in'
         @user = User.find_by_email(user_params[:email])
+        puts @user
         if @user 
             if @user.authenticate(user_params[:password])
                 token = jwt_encode({user_id: @user.user_id})
