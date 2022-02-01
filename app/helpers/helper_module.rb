@@ -20,7 +20,7 @@ module HelperModule
 
     private 
 
-    def jwt_encode(payload, expiration = 24.hours.from_now.to_i)
+    def jwt_encode(payload, expiration = 7.days.from_now.to_i)
         payload[:exp] = expiration
         return JWT.encode(payload, Rails.application.secrets.secret_key_base, 'HS256')
     end 
@@ -43,8 +43,13 @@ module HelperModule
                 @current_user = AdminUser.find(@decoded["admin_user_id"])
             end
         rescue ActiveRecord::RecordNotFound => e
+            puts  e
+            puts e.message
             render json: { errors: e.message }, status: :unauthorized
         rescue JWT::DecodeError => e
+            puts  e
+            puts e.message
+
             render json: { errors: e.message }, status: :unauthorized
         end
     end 

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
     include HelperModule
-    skip_before_action :authenticate_request, only: [:create, :index, :sign_in]
+    skip_before_action :authenticate_request, only: [:create, :sign_in]
 
     def index
         puts request.headers["Authorization"]
