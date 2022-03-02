@@ -99,6 +99,8 @@ ActiveRecord::Schema.define(version: 2021_07_20_152337) do
     t.integer "transfers"
     t.float "budget"
     t.integer "gw_start"
+    t.boolean "confirm_email", default: false
+    t.string "confirm_token"
     t.integer "admin_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
