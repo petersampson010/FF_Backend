@@ -8,6 +8,8 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.integer :transfers
       t.float :budget
       t.integer :gw_start
+      t.boolean :confirm_email, default: false
+      t.string :confirm_token
       t.integer :admin_user_id, null: false, foreign_key: true
 
       t.timestamps

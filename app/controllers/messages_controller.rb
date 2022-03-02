@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
 include HelperModule
-skip_before_action :authenticate_request, only: [:index]
+skip_before_action :authenticate_request, only: [:index, :send_email, :please_work]
 
 
     def index
@@ -16,6 +16,7 @@ skip_before_action :authenticate_request, only: [:index]
             render json: @message.errors.full_messages
         end 
     end 
+
 
     private 
 
