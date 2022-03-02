@@ -1,6 +1,6 @@
 class AdminUsersController < ApplicationController
 include HelperModule
-skip_before_action :authenticate_request, only: [:create, :index, :sign_in]
+skip_before_action :authenticate_request, only: [:create, :index, :sign_in, :confirm_email]
 
 
     def index 
@@ -12,7 +12,7 @@ skip_before_action :authenticate_request, only: [:create, :index, :sign_in]
         @admin_user = AdminUser.new(admin_user_params)
         confirmation_token(@admin_user)
         if @admin_user.save
-            NotifierMailer.registration_confirmation(@admin_user).deliver_now
+            NotifierMailer.au_registration_confirmation(@admin_user).deliver_now
             token = jwt_encode({admin_user_id: @admin_user.admin_user_id})
             render json: {admin_user: @admin_user, token: token}
         else
@@ -76,6 +76,8 @@ skip_before_action :authenticate_request, only: [:create, :index, :sign_in]
 
     def confirm_email
         admin_user = AdminUser.find_by_confirm_token(params[:id])
+        puts AdminUser.all
+        puts admin_user
         if admin_user
           admin_user.email_activate
           render json: 'Thank you for confirming your email. Please go back to App.'

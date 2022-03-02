@@ -5,15 +5,9 @@ class NotifierMailer < ApplicationMailer
         mail(:to => "#{user.email}", :subject => "Registration Confirmation")
     end
 
+    def au_registration_confirmation(admin_user)
+        @admin_user = admin_user
+        mail(:to => "#{admin_user.email}", :subject => "Registration Confirmation")
+    end
 
-    def simple_message(message, recipient)
-        puts 'hitting'
-        puts recipient.class
-        puts message.class
-        return mail(
-            to:  recipient,
-            subject: 'test',
-            body: message
-        )
-    end 
 end
