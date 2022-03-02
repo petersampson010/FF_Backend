@@ -8,4 +8,9 @@ class AdminUser < ApplicationRecord
 
     has_many :gameweeks
 
+    def email_activate
+        self.confirm_email = true
+        self.confirm_token = nil
+        save!(:validate => false)
+    end
 end

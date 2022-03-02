@@ -16,6 +16,8 @@ ActiveRecord::Schema.define(version: 2021_07_20_152337) do
     t.string "email", null: false
     t.string "password_digest", null: false
     t.string "club_name", null: false
+    t.boolean "confirm_email", default: false
+    t.string "confirm_token"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["club_name"], name: "index_admin_users_on_club_name", unique: true

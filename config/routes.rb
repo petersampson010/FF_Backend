@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   resources :messages
   resources :user_gameweek_joiners
   resources :player_gameweek_joiners
-  resources :admin_users
+  resources :admin_users do 
+    member do 
+      get :confirm_email
+    end 
+  end 
   resources :gameweeks
   resources :users do 
     member do 
@@ -36,8 +40,6 @@ Rails.application.routes.draw do
   get '/players/stats/:p_id/:gw_id', to: 'players#stats'
 
   patch '/records', to: 'records#custom_update'
-
-  post '/send_email', to: 'messages#send_email'
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

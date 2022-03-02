@@ -10,7 +10,9 @@ skip_before_action :authenticate_request, only: [:create, :index, :sign_in]
 
     def create
         @admin_user = AdminUser.new(admin_user_params)
+        confirmation_token(@admin_user)
         if @admin_user.save
+            NotifierMailer.registration_confirmation(@admin_user).deliver_now
             token = jwt_encode({admin_user_id: @admin_user.admin_user_id})
             render json: {admin_user: @admin_user, token: token}
         else
@@ -72,7 +74,25 @@ skip_before_action :authenticate_request, only: [:create, :index, :sign_in]
         render json: return_array
     end 
 
+    def confirm_email
+        admin_user = AdminUser.find_by_confirm_token(params[:id])
+        if admin_user
+          admin_user.email_activate
+          render json: 'Thank you for confirming your email. Please go back to App.'
+          puts "Welcome to the Sample App! Your email has been confirmed.
+          Please sign in to continue."
+        else
+            render json: "Sorry. User does not exist"
+        end
+    end
+
     private 
+
+    def confirmation_token(admin_user)
+        if admin_user.confirm_token.blank?
+            admin_user.confirm_token = SecureRandom.urlsafe_base64.to_s
+        end
+    end
 
     def admin_user_params 
         params.permit(:admin_user_id, :email, :password, :club_name)

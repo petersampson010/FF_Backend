@@ -5,6 +5,8 @@ class CreateAdminUsers < ActiveRecord::Migration[6.0]
       t.string :email, index: {unique: true}, null: false
       t.string :password_digest, null: false
       t.string :club_name, index: {unique: true}, null: false
+      t.boolean :confirm_email, default: false
+      t.string :confirm_token
 
       t.timestamps
     end

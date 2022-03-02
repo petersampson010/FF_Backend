@@ -47,9 +47,8 @@ Rails.application.configure do
   host = 'localhost:3000'
   config.action_mailer.default_url_options = { :host => 'localhost:3000', protocol: 'http' }
   config.action_mailer.smtp_settings = {
-    :user_name => 'petersampson010',
-    :password => 'rjappugnavukohyn
-    ',
+    :user_name => ENV["SET_GMAIL_USERNAME"],
+    :password => ENV["SET_GMAIL_KEY"],
     :address => 'smtp.gmail.com',
     :port => 587,
     :authentication => "plain",
