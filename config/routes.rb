@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  root 'users#index'
+
   resources :records
   resources :messages
   resources :user_gameweek_joiners
