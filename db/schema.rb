@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(version: 2021_07_20_152337) do
     t.index ["club_name"], name: "index_admin_users_on_club_name", unique: true
     t.index ["email"], name: "index_admin_users_on_email", unique: true
   end
-
   create_table "gameweeks", primary_key: "gameweek_id", force: :cascade do |t|
     t.string "date", null: false
     t.string "opponent", null: false
